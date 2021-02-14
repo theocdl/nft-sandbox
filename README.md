@@ -1,8 +1,4 @@
-# Sandbox
-
-## Motivation
-
-The goal of this sandbox is to provide a safe environment to work on the on-chain part of an existing software.
+# NFT Sandbox
 
 ## Install
 

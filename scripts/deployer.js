@@ -1,28 +1,22 @@
-const {expect} = require("chai");
+async function main() {
 
-describe("ERC-1155", function () {
+  const [deployer] = await ethers.getSigners();
 
-    let NFT;
-    let nft;
-    let addr;
+  console.log(
+    "Deploying from:",
+    deployer.address
+  );
 
-    beforeEach(async function () {
+  // Deploy NFT.sol
+  const NFT = await ethers.getContractFactory("NFT");
+  const nft = await NFT.deploy();
+  await nft.deployed();
+  console.log("NFT.sol deployed at", nft.address);
+}
 
-        [addr] = await ethers.getSigners();
-
-        NFT = await ethers.getContractFactory("NFT");
-        nft = await NFT.deploy();
-        await nft.deployed();
-
-    });
-
-    describe("Deployment", function () {
-
-        it("Should receive the NFT", async function () {
-            await nft.create(1);
-            let balance = await nft.balanceOf(addr.address, 0);
-            let balanceHex = balance.toString();
-            expect(balanceHex).to.equal('1000000000000000000');
-        });
-    });
-});
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });

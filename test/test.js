@@ -1,6 +1,6 @@
 const {expect} = require("chai");
 
-describe("ERC-1155", function () {
+describe("NFT Sandbox", function () {
 
     let NFT;
     let nft;
