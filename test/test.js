@@ -4,11 +4,12 @@ describe("NFT Sandbox", function () {
 
     let NFT;
     let nft;
-    let addr;
+    let owner;
+    let attacker;
 
     beforeEach(async function () {
 
-        [addr] = await ethers.getSigners();
+        [owner, attacker] = await ethers.getSigners(0);
 
         NFT = await ethers.getContractFactory("NFT");
         nft = await NFT.deploy();
@@ -16,13 +17,18 @@ describe("NFT Sandbox", function () {
 
     });
 
-    describe("Deployment", function () {
+    describe("Interactions", function () {
 
-        it("Should receive the NFT", async function () {
-            await nft.create(1);
-            let balance = await nft.balanceOf(addr.address, 0);
+        it("Owner should receive the NFT", async function () {
+            await nft.connect(owner).create(1);
+            let balance = await nft.balanceOf(owner.address, 0);
             let balanceHex = balance.toString();
             expect(balanceHex).to.equal('1000000000000000000');
         });
+
+        it("Attacker should not be able to mint", async function () {
+            await expect(nft.connect(attacker).create(1)).to.be.revertedWith("Ownable: caller is not the owner");
+        });
+
     });
 });
