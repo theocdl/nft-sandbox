@@ -34,7 +34,7 @@ npm i
 npm start
 ```
 
-## Deploy and run to Goerli testnet
+## Deploy to Goerli testnet and run
 
 - Make sure you have some [Goerli ETH](https://goerli-faucet.slock.it/) in your wallet.
 - Add your own private key in `hardhat.config.js`
