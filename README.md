@@ -14,7 +14,7 @@ npm i
 npx hardhat test
 ```
 
-## Deploy to Localhost
+## Deploy to localhost
 
 ```
 npx hardhat node
@@ -23,7 +23,6 @@ npx hardhat node
 Then in a new tab:
 
 ```
-cd nft-sandbox
 npx hardhat run scripts/deployer.js --network localhost
 ```
 
@@ -35,7 +34,7 @@ npm i
 npm start
 ```
 
-## Deploy to Goerli testnet
+## Deploy and run to Goerli testnet
 
 - Make sure you have some [Goerli ETH](https://goerli-faucet.slock.it/) in your wallet.
 - Add your own private key in `hardhat.config.js`
@@ -43,6 +42,8 @@ npm start
 
 ```
 npx hardhat run scripts/deployer.js --network goerli
+cd frontend
+npm start
 ```
 
 ## Contact
