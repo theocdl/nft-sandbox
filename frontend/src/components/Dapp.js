@@ -10,9 +10,7 @@ import NFTArtifact from "../contracts/NFT.json";
 
 // const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
-// 31337 for localhost 8545 ; 5 for Goerli testnet
-
-//const HARDHAT_NETWORK_ID = '5';
+// const HARDHAT_NETWORK_ID = '5';
 const HARDHAT_NETWORK_ID = '31337';
 
 export class Dapp extends React.Component {
@@ -25,6 +23,7 @@ export class Dapp extends React.Component {
       txBeingSent: undefined,
       transactionError: undefined,
       networkError: undefined,
+
       nft : {
         addr: undefined,
         name: undefined,

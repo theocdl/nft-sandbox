@@ -7,15 +7,15 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NFT is ERC1155, Ownable {
 
-    uint public supply;
+    uint256 public constant RUNNER = 0;
 
-    constructor() public ERC1155("https://ipfs.io/ipfs/QmXbH9qTjFFtxpCpV8bx2Mbj4obJVEf41STehbdb2uJEf7")
+    constructor() public ERC1155("https://ipfs.io/ipfs/QmaP3Te1XuMQQbRw9FCQM93x9SUysquYfNi7FokmgzEiCX")
     {
         
     }
 
-    function create(uint _supply) external onlyOwner() {
-        supply = _supply;
-        _mint(msg.sender, 0, _supply * 10 ** 18, "");
+    function create() onlyOwner() external
+    {
+        _mint(msg.sender, RUNNER, 1, "");
     }
 }

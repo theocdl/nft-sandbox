@@ -10,10 +10,7 @@ async function main() {
   // Deploy NFT.sol
   const NFT = await ethers.getContractFactory("NFT");
   const nft = await NFT.deploy();
-  // await nft.deployed();
   console.log("NFT.sol deployed at", nft.address);
-
-
 
   saveFrontendFiles(nft);
 }
