@@ -7,9 +7,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NFT is ERC1155, Ownable {
 
-    uint supply;
+    uint public supply;
 
-    constructor() public ERC1155("https://ipfs.io/ipfs/QmfYyTACYNmFFZGbVoAT24o8pvbw5HfC1WjAeRoSdi1ZdW") {}
+    constructor() public ERC1155("https://ipfs.io/ipfs/QmXbH9qTjFFtxpCpV8bx2Mbj4obJVEf41STehbdb2uJEf7")
+    {
+        
+    }
 
     function create(uint _supply) external onlyOwner() {
         supply = _supply;

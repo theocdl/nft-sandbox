@@ -4,11 +4,8 @@ require("@nomiclabs/hardhat-waffle");
 // Replace this with your Infura project ID
 const INFURA_PROJECT_ID = "e719881621e34ee3aa848d3bb3b28b50";
 
-// Replace this private key with your Ropsten account private key
-// To export your private key from Metamask, open Metamask and
-// go to Account Details > Export Private Key
-// Be aware of NEVER putting real Ether into testing accounts
-const GOERLI_PRIVATE_KEY = "c5e8f61d1ab959b397eecc0a37a6517b8e67a0e7cf1f4bce5591f3ed80199122";
+// Add your own private key here
+const GOERLI_PRIVATE_KEY = "0x00000000000000000000000000000000000000000000000000000000000000";
 
 module.exports = {
   solidity: "0.7.3",
