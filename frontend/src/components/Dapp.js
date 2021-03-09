@@ -10,8 +10,8 @@ import NFTArtifact from "../contracts/NFT.json";
 
 // const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
-// const HARDHAT_NETWORK_ID = '5';
-const HARDHAT_NETWORK_ID = '31337';
+const HARDHAT_NETWORK_ID = '5';
+// const HARDHAT_NETWORK_ID = '31337';
 
 export class Dapp extends React.Component {
   constructor(props) {
@@ -187,8 +187,8 @@ export class Dapp extends React.Component {
             image: metadata.image,
             address: nftAddress.NFT,
             name: metadata.name,
-            supply: 10, // placeholder value
-            price: "88 EUR" // placeholder value
+            supply: 1, // placeholder value
+            price: "0 EUR" // placeholder value
         }
     });
   }

@@ -324,8 +324,8 @@
       ]
     },
     "/Users/ju/Desktop/nft-sandbox/contracts/NFT.sol": {
-      "lastModificationDate": 1613387014740,
-      "contentHash": "32390315665c9117f6735bd20333ce65",
+      "lastModificationDate": 1615287146127,
+      "contentHash": "3d7d06b8c4c6e4a8d4542704d05486a9",
       "sourceName": "contracts/NFT.sol",
       "solcConfig": {
         "version": "0.7.3",
