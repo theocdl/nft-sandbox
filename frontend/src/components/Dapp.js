@@ -3,6 +3,8 @@ import { ethers } from "ethers";
 // import { BigNumber } from "@ethersproject/bignumber";
 // import { ContractFactory } from 'ethers';
 import nftAddress from "../contracts/nftAddress.json";
+import gameAddress from "../contracts/"
+
 import { NoWalletDetected } from "./NoWalletDetected";
 import { ConnectWallet } from "./ConnectWallet";
 import { Loading } from "./Loading";
