@@ -3,11 +3,11 @@ import {ethers} from "ethers";
 // import { BigNumber } from "@ethersproject/bignumber";
 // import { ContractFactory } from 'ethers';
 
-import nftAddress from "../contracts/nftAddress.json";
-import NFTArtifact from "../contracts/NFT.json";
+import characterAddress from "../contracts/characterAddress.json";
+import CharacterArtifact from "../contracts/Character.json";
 
-import gameAddress from "../contracts/gameAddress.json";
-import gameArtifact from "../contracts/Game.json";
+import weaponAddress from "../contracts/weaponAddress.json";
+import WeaponArtifact from "../contracts/Weapon.json";
 
 import {NoWalletDetected} from "./NoWalletDetected";
 import {ConnectWallet} from "./ConnectWallet";
@@ -33,7 +33,7 @@ export class Dapp extends React.Component {
             transactionError: undefined,
             networkError: undefined,
 
-            nft: {
+            character: {
                 addr: undefined,
                 name: undefined,
                 image: undefined,
@@ -80,7 +80,7 @@ export class Dapp extends React.Component {
                         </p>
                         <br/>
 
-                        {!this.state.nft.name && (
+                        {!this.state.character.name && (
                             <div className="row">
                                 <div className="col-12">
                                     <p>No NFT found on this wallet.</p>
@@ -88,19 +88,19 @@ export class Dapp extends React.Component {
                             </div>
                         )}
 
-                        {this.state.nft.name && (
+                        {this.state.character.name && (
 
                             <div className="row">
 
                                 <div className="col-3">
-                                    <img alt="nft" src={this.state.nft.image}
+                                    <img alt="character" src={this.state.character.image}
                                          className="img-thumbnail rounded float-left"></img>
                                 </div>
                                 <div className="col-9">
-                                    <p>Name: <b>{this.state.nft.name}</b></p>
-                                    <p>Address: <b>{this.state.nft.address}</b></p>
-                                    <p>Supply: <b>{this.state.nft.supply}</b></p>
-                                    <p>Price: <b>{this.state.nft.price}</b></p>
+                                    <p>Name: <b>{this.state.character.name}</b></p>
+                                    <p>Address: <b>{this.state.character.address}</b></p>
+                                    <p>Supply: <b>{this.state.character.supply}</b></p>
+                                    <p>Price: <b>{this.state.character.price}</b></p>
                                 </div>
                             </div>
                         )}
@@ -134,9 +134,8 @@ export class Dapp extends React.Component {
                         </div>
                         <div>
                             {a === 1
-                                ? < button className="btn-sn btn-success mr-md-3">
-                                    SORRY YOU LOSE !
-                                </button>
+                                ? <p>Sorry, you didn't win!</p>
+
                                 : <p></p>
                             }
                         </div>
@@ -194,9 +193,9 @@ export class Dapp extends React.Component {
 
         this._provider = new ethers.providers.Web3Provider(window.ethereum);
 
-        this._nft = new ethers.Contract(
-            nftAddress.NFT,
-            NFTArtifact.abi,
+        this._character = new ethers.Contract(
+            characterAddress.Character,
+            CharacterArtifact.abi,
             this._provider.getSigner(0)
         );
     }
@@ -212,19 +211,43 @@ export class Dapp extends React.Component {
 
     async _updateState() {
 
-        var getMetadata = await this._nft.uri(0);
+        var getMetadata = await this._character.uri(0);
         var metadataRaw = await fetch(getMetadata);
         var metadata = await metadataRaw.json();
 
         this.setState({
-            nft: {
+            character: {
                 image: metadata.image,
-                address: nftAddress.NFT,
+                address: characterAddress.Character,
                 name: metadata.name,
                 supply: 1, // placeholder value
                 price: "0 EUR" // placeholder value
             }
         });
+    }
+
+    async _whitelistWinner() {
+
+        this._weapon = new ethers.Contract(
+            weaponAddress.Weapon,
+            WeaponArtifact.abi,
+            this._provider.getSigner(0)
+        );
+
+        a = 1 + Math.floor(Math.random() * 2);
+        if (a === 2) {
+            await this._weapon.whitelistWinner("0xeAD9C93b79Ae7C1591b1FB5323BD777E86e150d4");
+        }
+    }
+
+    async _claimReward() {
+        this._weapon = new ethers.Contract(
+            weaponAddress.Weapon,
+            WeaponArtifact.abi,
+            this._provider.getSigner(0)
+        );
+
+        await this._weapon.claimReward();
     }
 
     _dismissTransactionError() {
@@ -257,30 +280,5 @@ export class Dapp extends React.Component {
         });
 
         return false;
-    }
-
-
-    async _whitelistWinner() {
-
-        this._game = new ethers.Contract(
-            gameAddress.Game,
-            gameArtifact.abi,
-            this._provider.getSigner(0)
-        );
-
-        a = 1 + Math.floor(Math.random() * 2);
-        if (a === 2) {
-            await this._game.whitelistWinner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
-        }
-    }
-
-    async _claimReward() {
-        this._game = new ethers.Contract(
-            gameAddress.Game,
-            gameArtifact.abi,
-            this._provider.getSigner(0)
-        );
-
-        await this._game.claimReward();
     }
 }

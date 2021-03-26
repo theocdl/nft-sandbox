@@ -1,46 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "D:\\application\\Solidity\\nft-sandbox\\contracts\\Game.sol": {
-      "lastModificationDate": 1616264454067,
-      "contentHash": "7aeeb88bfc16d971824f617a4515595b",
-      "sourceName": "contracts/Game.sol",
-      "solcConfig": {
-        "version": "0.7.3",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC1155/ERC1155.sol",
-        "@openzeppelin/contracts/token/ERC1155/IERC1155.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.7.0"
-      ],
-      "artifacts": [
-        "Game"
-      ]
-    },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\ERC1155.sol": {
-      "lastModificationDate": 1616261957464,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/token/ERC1155/ERC1155.sol": {
+      "lastModificationDate": 1613294271667,
       "contentHash": "33407bb7ff4811650cd1c328e646e55d",
       "sourceName": "@openzeppelin/contracts/token/ERC1155/ERC1155.sol",
       "solcConfig": {
@@ -81,8 +43,8 @@
         "ERC1155"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\IERC1155.sol": {
-      "lastModificationDate": 1616261958620,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155.sol": {
+      "lastModificationDate": 1613294271677,
       "contentHash": "cb9dc62067a205eeab4f390c72c7fe14",
       "sourceName": "@openzeppelin/contracts/token/ERC1155/IERC1155.sol",
       "solcConfig": {
@@ -117,8 +79,8 @@
         "IERC1155"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\access\\Ownable.sol": {
-      "lastModificationDate": 1616261959404,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1613294271685,
       "contentHash": "6748815a5b45c4aeeda56819f41190e0",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -153,8 +115,8 @@
         "Ownable"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\IERC1155MetadataURI.sol": {
-      "lastModificationDate": 1616261958655,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155MetadataURI.sol": {
+      "lastModificationDate": 1613294271678,
       "contentHash": "9a313e25e2a837a50f7ae87017539457",
       "sourceName": "@openzeppelin/contracts/token/ERC1155/IERC1155MetadataURI.sol",
       "solcConfig": {
@@ -189,8 +151,8 @@
         "IERC1155MetadataURI"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\IERC1155Receiver.sol": {
-      "lastModificationDate": 1616261958670,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol": {
+      "lastModificationDate": 1613294271678,
       "contentHash": "27af002e8fc1118d099c99fc8852bb73",
       "sourceName": "@openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
       "solcConfig": {
@@ -225,8 +187,8 @@
         "IERC1155Receiver"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\utils\\Context.sol": {
-      "lastModificationDate": 1616261957089,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1613294271665,
       "contentHash": "2adbd82f6d055a4751566d4671512b03",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -259,8 +221,8 @@
         "Context"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\introspection\\ERC165.sol": {
-      "lastModificationDate": 1616261957667,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/introspection/ERC165.sol": {
+      "lastModificationDate": 1613294271669,
       "contentHash": "08f854e2dd3c262845bba38c9b48e4e0",
       "sourceName": "@openzeppelin/contracts/introspection/ERC165.sol",
       "solcConfig": {
@@ -295,8 +257,8 @@
         "ERC165"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\math\\SafeMath.sol": {
-      "lastModificationDate": 1616261959795,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/math/SafeMath.sol": {
+      "lastModificationDate": 1613294271695,
       "contentHash": "e03e12206057e809eb76c5f681170c32",
       "sourceName": "@openzeppelin/contracts/math/SafeMath.sol",
       "solcConfig": {
@@ -329,8 +291,8 @@
         "SafeMath"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\utils\\Address.sol": {
-      "lastModificationDate": 1616261956542,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1613294271662,
       "contentHash": "7aa46886ff5abe7515496208a5e2ce5a",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -363,8 +325,8 @@
         "Address"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\@openzeppelin\\contracts\\introspection\\IERC165.sol": {
-      "lastModificationDate": 1616261958701,
+    "/Users/ju/Desktop/nft-sandbox/node_modules/@openzeppelin/contracts/introspection/IERC165.sol": {
+      "lastModificationDate": 1613294271679,
       "contentHash": "0d62a8380952235f135dae91590f90a3",
       "sourceName": "@openzeppelin/contracts/introspection/IERC165.sol",
       "solcConfig": {
@@ -397,10 +359,44 @@
         "IERC165"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\contracts\\NFT.sol": {
-      "lastModificationDate": 1616261025586,
-      "contentHash": "096481a81d107d3d10776545f082027b",
-      "sourceName": "contracts/NFT.sol",
+    "/Users/ju/Desktop/nft-sandbox/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1613293669175,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/Users/ju/Desktop/nft-sandbox/contracts/Character.sol": {
+      "lastModificationDate": 1616789121942,
+      "contentHash": "512c585ba5e8fc1dcf7785a2ee50f8c0",
+      "sourceName": "contracts/Character.sol",
       "solcConfig": {
         "version": "0.7.3",
         "settings": {
@@ -432,13 +428,13 @@
         "^0.7.0"
       ],
       "artifacts": [
-        "NFT"
+        "Character"
       ]
     },
-    "D:\\application\\Solidity\\nft-sandbox\\node_modules\\hardhat\\console.sol": {
-      "lastModificationDate": 1616261972625,
-      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
-      "sourceName": "hardhat/console.sol",
+    "/Users/ju/Desktop/nft-sandbox/contracts/Weapon.sol": {
+      "lastModificationDate": 1616789557188,
+      "contentHash": "a708936ff4e4a18fa4003b5cf6acbdc8",
+      "sourceName": "contracts/Weapon.sol",
       "solcConfig": {
         "version": "0.7.3",
         "settings": {
@@ -461,12 +457,16 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "@openzeppelin/contracts/token/ERC1155/ERC1155.sol",
+        "@openzeppelin/contracts/token/ERC1155/IERC1155.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
       "versionPragmas": [
-        ">=0.4.22 <0.9.0"
+        "^0.7.0"
       ],
       "artifacts": [
-        "console"
+        "Weapon"
       ]
     }
   }

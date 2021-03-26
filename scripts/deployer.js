@@ -7,48 +7,47 @@ async function main() {
         deployer.address
     );
 
-    // Deploy NFT.sol
-    const NFT = await ethers.getContractFactory("NFT");
-    const nft = await NFT.deploy();
-    console.log("NFT.sol deployed at", nft.address);
+    // Deploy Character.sol
+    const Character = await ethers.getContractFactory("Character");
+    const character = await Character.deploy();
+    console.log("Character.sol deployed at", character.address);
 
-    const Game = await ethers.getContractFactory("Game");
-    const game = await Game.deploy();
-    console.log("Game.sol deployed at", game.address);
+    const Weapon = await ethers.getContractFactory("Weapon");
+    const weapon = await Weapon.deploy();
+    console.log("Weapon.sol deployed at", weapon.address);
 
-
-    saveFrontendFilesNFT(nft);
-    saveFrontendFilesGame(game);
+    saveFrontendFilesCharacter(character);
+    saveFrontendFilesWeapon(weapon);
 }
 
 const fs = require("fs");
 const contractsDir = __dirname + "/../frontend/src/contracts";
 
-function saveFrontendFilesNFT(nft) {
+function saveFrontendFilesCharacter(character) {
 
-    const NFTArtifact = artifacts.readArtifactSync("NFT");
+    const CharacterArtifact = artifacts.readArtifactSync("Character");
     fs.writeFileSync(
-        contractsDir + "/NFT.json",
-        JSON.stringify(NFTArtifact, null, 2)
+        contractsDir + "/Character.json",
+        JSON.stringify(CharacterArtifact, null, 2)
     );
 
     fs.writeFileSync(
-        contractsDir + "/nftAddress.json",
-        JSON.stringify({NFT: nft.address}, undefined, 2)
+        contractsDir + "/characterAddress.json",
+        JSON.stringify({Character: character.address}, undefined, 2)
     );
 }
 
-function saveFrontendFilesGame(game) {
+function saveFrontendFilesWeapon(weapon) {
 
-    const gameArtifact = artifacts.readArtifactSync("Game");
+    const weaponArtifact = artifacts.readArtifactSync("Weapon");
     fs.writeFileSync(
-        contractsDir + "/Game.json",
-        JSON.stringify(gameArtifact, null, 2)
+        contractsDir + "/Weapon.json",
+        JSON.stringify(weaponArtifact, null, 2)
     );
 
     fs.writeFileSync(
-        contractsDir + "/gameAddress.json",
-        JSON.stringify({Game: game.address}, undefined, 2)
+        contractsDir + "/weaponAddress.json",
+        JSON.stringify({Weapon: weapon.address}, undefined, 2)
     );
 }
 
