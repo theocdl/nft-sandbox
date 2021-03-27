@@ -7,15 +7,21 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Character is ERC1155, Ownable {
 
-    uint256 public constant CHARACTER = 0;
+    uint256 public constant Mitsurugi = 0;
+    uint256 public constant Siegfried = 1;
 
-    constructor() public ERC1155("https://ipfs.io/ipfs/QmQu7BGGQpyi7VTuHjtK5tQdWobF9iYenscLetgZqF3npj")
+    constructor() public ERC1155("https://gateway.pinata.cloud/ipfs/QmSG2yhPzR4YV6473Sgdv8i26H9vCmw2FLNwAUXSmdKokh/Hexarchia/{name}.json")
     {
 
     }
 
-    function create() onlyOwner() external
+    function mintOneMitsurugi() onlyOwner() external
     {
-        _mint(msg.sender, CHARACTER, 1, "");
+        _mint(msg.sender, Mitsurugi, 1, "");
+    }
+
+    function mintOneSiegfried() onlyOwner() external
+    {
+        _mint(msg.sender, Siegfried, 1, "");
     }
 }

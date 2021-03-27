@@ -212,18 +212,19 @@ export class Dapp extends React.Component {
     async _updateState() {
 
         var getMetadata = await this._character.uri(0);
-        var metadataRaw = await fetch(getMetadata);
-        var metadata = await metadataRaw.json();
+        // var metadataRaw = await fetch(getMetadata);
+        // var metadata = await metadataRaw.json();
+        console.log("uri = ", getMetadata);
 
-        this.setState({
-            character: {
-                image: metadata.image,
-                address: characterAddress.Character,
-                name: metadata.name,
-                supply: 1, // placeholder value
-                price: "0 EUR" // placeholder value
-            }
-        });
+        // this.setState({
+        //     character: {
+        //         image: metadata.image,
+        //         address: characterAddress.Character,
+        //         name: metadata.name,
+        //         supply: 1, // placeholder value
+        //         price: "0 EUR" // placeholder value
+        //     }
+        // });
     }
 
     async _whitelistWinner() {
