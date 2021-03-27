@@ -29,7 +29,7 @@ describe("NFT Sandbox", function () {
 
         it("Owner should receive the NFT", async function () {
             let create = await character.connect(owner).mintOneMitsurugi();
-            let balance = await character.balanceOf(owner.address, 0);
+            let balance = await character.balanceOf(owner.address, 1);
             let balanceHex = balance.toString();
             expect(balanceHex).to.equal('1');
         });
