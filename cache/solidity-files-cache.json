@@ -394,8 +394,8 @@
       ]
     },
     "/Users/ju/Desktop/nft-sandbox/contracts/Character.sol": {
-      "lastModificationDate": 1616875199233,
-      "contentHash": "52b119bce73531e833b879209ab27c4b",
+      "lastModificationDate": 1616923980168,
+      "contentHash": "c832797b2042943f2517ac202e3ab33a",
       "sourceName": "contracts/Character.sol",
       "solcConfig": {
         "version": "0.7.3",

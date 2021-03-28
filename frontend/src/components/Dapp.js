@@ -1,14 +1,9 @@
 import React from "react";
 import {ethers} from "ethers";
-// import { BigNumber } from "@ethersproject/bignumber";
-// import { ContractFactory } from 'ethers';
-
 import characterAddress from "../contracts/characterAddress.json";
 import CharacterArtifact from "../contracts/Character.json";
-
 import weaponAddress from "../contracts/weaponAddress.json";
 import WeaponArtifact from "../contracts/Weapon.json";
-
 import {NoWalletDetected} from "./NoWalletDetected";
 import {ConnectWallet} from "./ConnectWallet";
 import {Loading} from "./Loading";
@@ -16,7 +11,6 @@ import {Loading} from "./Loading";
 // const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
 const HARDHAT_NETWORK_ID = '5';
-
 // const HARDHAT_NETWORK_ID = '31337';
 
 let a;
@@ -33,7 +27,15 @@ export class Dapp extends React.Component {
             transactionError: undefined,
             networkError: undefined,
 
-            character: {
+            mitsurugi: {
+                addr: undefined,
+                name: undefined,
+                image: undefined,
+                supply: undefined,
+                price: undefined
+            },
+
+            siegfried: {
                 addr: undefined,
                 name: undefined,
                 image: undefined,
@@ -78,9 +80,9 @@ export class Dapp extends React.Component {
                         <p>
                             Welcome! Your wallet address is <b>{this.state.selectedAddress}</b>
                         </p>
-                        <br/>
 
-                        {!this.state.character.name && (
+
+                        {!this.state.mitsurugi.name && (
                             <div className="row">
                                 <div className="col-12">
                                     <p>No NFT found on this wallet.</p>
@@ -88,27 +90,62 @@ export class Dapp extends React.Component {
                             </div>
                         )}
 
-                        {this.state.character.name && (
+                        {this.state.mitsurugi.name && (
+                            <div className="row">
+                                <div className="col-12">
+                                    <p>You own:</p>
+                                    <ul>
+                                      <li><b>1</b> Mitsurugi</li>
+                                      <li><b>1</b> Soul Edge sword</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+
+
+                        <hr/>
+
+                        {/*  */}
+                        <h3>Create items</h3>
+                        <br/>
+
+                        {this.state.mitsurugi.name && (
 
                             <div className="row">
 
                                 <div className="col-3">
-                                    <img alt="character" src={this.state.character.image}
+                                    <img alt="character" src={this.state.mitsurugi.image}
                                          className="img-thumbnail rounded float-left"></img>
                                 </div>
                                 <div className="col-9">
-                                    <p>Name: <b>{this.state.character.name}</b></p>
-                                    <p>Address: <b>{this.state.character.address}</b></p>
-                                    <p>Supply: <b>{this.state.character.supply}</b></p>
-                                    <p>Price: <b>{this.state.character.price}</b></p>
+                                    <p>Name: <b>{this.state.mitsurugi.name}</b></p>
+                                    <p>Address: <b>{this.state.mitsurugi.address}</b></p>
+                                    <p>Supply: <b>{this.state.mitsurugi.supply}</b></p>
+                                    <p>Price: <b>{this.state.mitsurugi.price}</b></p>
                                 </div>
                             </div>
                         )}
-                        <hr/>
 
-                        {/* We'll implement the requested features here */}
-                        <h3>Create items</h3>
                         <br/>
+
+
+                        {this.state.siegfried.name && (
+
+                            <div className="row">
+
+                                <div className="col-3">
+                                    <img alt="character" src={this.state.siegfried.image}
+                                         className="img-thumbnail rounded float-left"></img>
+                                </div>
+                                <div className="col-9">
+                                    <p>Name: <b>{this.state.siegfried.name}</b></p>
+                                    <p>Address: <b>{this.state.siegfried.address}</b></p>
+                                    <p>Supply: <b>{this.state.siegfried.supply}</b></p>
+                                    <p>Price: <b>{this.state.siegfried.price}</b></p>
+                                </div>
+                            </div>
+                        )}
+
                         <hr/>
 
                         <h3>Buy items</h3>
@@ -211,14 +248,17 @@ export class Dapp extends React.Component {
 
     async _updateState() {
 
+        // poll metadata
         var getMetadata = await this._character.uri(1);
+
         var replaced = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000001");
         var metadataRaw = await fetch(replaced);
         var metadata = await metadataRaw.json();
-        console.log("uri = ", replaced);
+
+        console.log("name=",metadata.name);
 
         this.setState({
-            character: {
+            mitsurugi: {
                 image: metadata.image,
                 address: characterAddress.Character,
                 name: metadata.name,
@@ -226,6 +266,24 @@ export class Dapp extends React.Component {
                 price: "0 EUR" // placeholder value
             }
         });
+
+
+        var replaced2 = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000002");
+        var metadataRaw2 = await fetch(replaced2);
+        var metadata2 = await metadataRaw2.json();
+
+        this.setState({
+            siegfried: {
+                //image: metadata2.image,
+                image: metadata2.image,
+                address: characterAddress.Character,
+                name: metadata2.name,
+                supply: 1, // placeholder value
+                price: "0 EUR" // placeholder value
+            }
+        });
+        console.log("name2=",metadata2.name);
+
     }
 
     async _whitelistWinner() {

@@ -10,18 +10,23 @@ contract Character is ERC1155, Ownable {
     uint256 public constant SIEGFRIED = 0;
     uint256 public constant MITSURUGI = 1;
 
+    event Minted(uint256 indexed name, uint256 indexed amount);
+
     constructor() public ERC1155("https://ipfs.io/ipfs/QmUeLh7mVrkFujCxHNL7AGhoWkNVfb2DZBxDQ4zFSHchdJ/{id}.json")
     {
 
     }
 
-    function mintOneSiegfried() onlyOwner() external
+    function mintOneSiegfried(uint256 _amount) onlyOwner() external
     {
-        _mint(msg.sender, SIEGFRIED, 1, "");
+        _mint(msg.sender, SIEGFRIED, _amount, "");
+        emit Minted(SIEGFRIED, _amount);
     }
 
-    function mintOneMitsurugi() onlyOwner() external
+    function mintOneMitsurugi(uint256 _amount) onlyOwner() external
     {
-        _mint(msg.sender, MITSURUGI, 1, "");
+        _mint(msg.sender, MITSURUGI, _amount, "");
+        emit Minted(MITSURUGI, _amount);
+
     }
 }
