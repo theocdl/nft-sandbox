@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\application\\Solidity\\nft-sandbox\\contracts\\Character.sol": {
-      "lastModificationDate": 1616931776664,
-      "contentHash": "f18048ed1bc2b6a986882da574f8808c",
+      "lastModificationDate": 1616956099295,
+      "contentHash": "f5303e07a6c39bc839e08815382786b4",
       "sourceName": "contracts/Character.sol",
       "solcConfig": {
         "version": "0.7.3",
@@ -30,6 +30,7 @@
       "imports": [
         "hardhat/console.sol",
         "@openzeppelin/contracts/token/ERC1155/ERC1155.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
         "@openzeppelin/contracts/access/Ownable.sol"
       ],
       "versionPragmas": [

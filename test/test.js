@@ -6,6 +6,8 @@ describe("NFT Sandbox", function () {
     let character;
     let Weapon;
     let weapon;
+    let DAI;
+    let dai;
 
     let owner;
     let player;
@@ -15,8 +17,12 @@ describe("NFT Sandbox", function () {
 
         [owner, attacker, player] = await ethers.getSigners(0);
 
+        DAI = await ethers.getContractFactory("DAI");
+        dai = await DAI.connect(player).deploy();
+        await dai.deployed();
+
         Character = await ethers.getContractFactory("Character");
-        character = await Character.connect(owner).deploy();
+        character = await Character.connect(owner).deploy(dai.address, owner.address);
         await character.deployed();
 
         Weapon = await ethers.getContractFactory("Weapon");
@@ -24,11 +30,27 @@ describe("NFT Sandbox", function () {
         await weapon.deployed();
 
     });
+    describe("DAI", function () {
 
+        it("Player should receive 1000000 DAI", async function () {
+            let balancePlayer = await dai.balanceOf(player.address);
+            balancePlayer = balancePlayer.toString();
+            expect(balancePlayer).to.equal('1000000000000000000000000');
+        });
+    });
     describe("Characters", function () {
 
-        it("Owner should receive the NFT", async function () {
-            let create = await character.connect(owner).mintOneMitsurugi(1);
+        it("Player should buy the NFT", async function () {
+            await character.connect(owner).supplyOfItem(0, 1);
+            await dai.connect(player).approve(character.address, 1);
+            await character.connect(player).buyMitsurugi(1);
+            let balance = await character.balanceOf(player.address, 1);
+            let balanceHex = balance.toString();
+            expect(balanceHex).to.equal('1');
+        });
+
+        it("Owner should mint and receive the NFT", async function () {
+            await character.connect(owner).mintOneMitsurugi(1);
             let balance = await character.balanceOf(owner.address, 1);
             let balanceHex = balance.toString();
             expect(balanceHex).to.equal('1');
