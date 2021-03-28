@@ -5,7 +5,7 @@ require("@nomiclabs/hardhat-waffle");
 const INFURA_PROJECT_ID = "e719881621e34ee3aa848d3bb3b28b50";
 
 // Add your own private key here
-const GOERLI_PRIVATE_KEY = "d49743deccbccc5dc7baa8e69e5be03298da8688a15dd202e20f15d5e0e9a9fb";
+const GOERLI_PRIVATE_KEY = "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 
 module.exports = {
   solidity: "0.7.3",

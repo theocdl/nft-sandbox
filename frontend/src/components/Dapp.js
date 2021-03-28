@@ -4,6 +4,8 @@ import characterAddress from "../contracts/characterAddress.json";
 import CharacterArtifact from "../contracts/Character.json";
 import weaponAddress from "../contracts/weaponAddress.json";
 import WeaponArtifact from "../contracts/Weapon.json";
+import daiAddress from "../contracts/daiAddress.json";
+import DAIArtifact from "../contracts/DAI.json";
 import {NoWalletDetected} from "./NoWalletDetected";
 import {ConnectWallet} from "./ConnectWallet";
 import {Loading} from "./Loading";
@@ -80,7 +82,16 @@ export class Dapp extends React.Component {
                         <p>
                             Welcome! Your wallet address is <b>{this.state.selectedAddress}</b>
                         </p>
-
+                        <hr/>
+                        <h3>
+                            DAI faucet
+                        </h3>
+                        <div>
+                            <p>Click on this button to receive some DAI.</p>
+                            <button onClick={() => this._getDAI()} className="btn-sn btn-success mr-md-3">
+                                GET DAI
+                            </button>
+                        </div>
 
                         {!this.state.mitsurugi.name && (
                             <div className="row">
@@ -89,14 +100,14 @@ export class Dapp extends React.Component {
                                 </div>
                             </div>
                         )}
-
+                        <hr/>
                         {this.state.mitsurugi.name && (
                             <div className="row">
                                 <div className="col-12">
                                     <p>You own:</p>
                                     <ul>
-                                      <li><b>1</b> Mitsurugi</li>
-                                      <li><b>1</b> Soul Edge sword</li>
+                                        <li><b>1</b> Mitsurugi</li>
+                                        <li><b>1</b> Soul Edge sword</li>
                                     </ul>
                                 </div>
                             </div>
@@ -255,8 +266,6 @@ export class Dapp extends React.Component {
         var metadataRaw = await fetch(replaced);
         var metadata = await metadataRaw.json();
 
-        console.log("name=",metadata.name);
-
         this.setState({
             mitsurugi: {
                 image: metadata.image,
@@ -266,7 +275,6 @@ export class Dapp extends React.Component {
                 price: "0 EUR" // placeholder value
             }
         });
-
 
         var replaced2 = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000002");
         var metadataRaw2 = await fetch(replaced2);
@@ -282,7 +290,6 @@ export class Dapp extends React.Component {
                 price: "0 EUR" // placeholder value
             }
         });
-        console.log("name2=",metadata2.name);
 
     }
 
@@ -296,7 +303,7 @@ export class Dapp extends React.Component {
 
         a = 1 + Math.floor(Math.random() * 2);
         if (a === 2) {
-            await this._weapon.whitelistWinner("0xeAD9C93b79Ae7C1591b1FB5323BD777E86e150d4");
+            await this._weapon.whitelistWinner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
         }
     }
 
@@ -308,6 +315,17 @@ export class Dapp extends React.Component {
         );
 
         await this._weapon.claimReward();
+    }
+
+    async _getDAI() {
+
+        this._dai = new ethers.Contract(
+            daiAddress.DAI,
+            DAIArtifact.abi,
+            this._provider.getSigner(0)
+        );
+
+        await this._dai.withdraw();
     }
 
     _dismissTransactionError() {

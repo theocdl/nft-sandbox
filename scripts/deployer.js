@@ -16,8 +16,14 @@ async function main() {
     const weapon = await Weapon.deploy();
     console.log("Weapon.sol deployed at", weapon.address);
 
+    const DAI = await  ethers.getContractFactory("DAI");
+    const dai = await DAI.deploy();
+    console.log("DAI.sol deployed at", dai.address);
+
+
     saveFrontendFilesCharacter(character);
     saveFrontendFilesWeapon(weapon);
+    saveFrontendFilesDAI(dai);
 }
 
 const fs = require("fs");
@@ -48,6 +54,20 @@ function saveFrontendFilesWeapon(weapon) {
     fs.writeFileSync(
         contractsDir + "/weaponAddress.json",
         JSON.stringify({Weapon: weapon.address}, undefined, 2)
+    );
+}
+
+function saveFrontendFilesDAI(dai) {
+
+    const DAIArtifact = artifacts.readArtifactSync("DAI");
+    fs.writeFileSync(
+        contractsDir + "/DAI.json",
+        JSON.stringify(DAIArtifact, null, 2)
+    );
+
+    fs.writeFileSync(
+        contractsDir + "/daiAddress.json",
+        JSON.stringify({DAI: dai.address}, undefined, 2)
     );
 }
 
