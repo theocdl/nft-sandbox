@@ -38,27 +38,17 @@ describe("NFT Sandbox", function () {
             expect(balancePlayer).to.equal('1000000000000000000000000');
         });
     });
+
     describe("Characters", function () {
 
         it("Player should buy the NFT", async function () {
-            await character.connect(owner).supplyOfItem(0, 1);
             await dai.connect(player).approve(character.address, 1);
-            await character.connect(player).buyMitsurugi(1);
-            let balance = await character.balanceOf(player.address, 1);
+            await character.connect(player).buyEmperor(1);
+            let balance = await character.balanceOf(player.address, 0);
             let balanceHex = balance.toString();
             expect(balanceHex).to.equal('1');
         });
 
-        it("Owner should mint and receive the NFT", async function () {
-            await character.connect(owner).mintOneMitsurugi(1);
-            let balance = await character.balanceOf(owner.address, 1);
-            let balanceHex = balance.toString();
-            expect(balanceHex).to.equal('1');
-        });
-
-        it("Attacker should not be able to mint", async function () {
-            await expect(character.connect(attacker).mintOneMitsurugi(1)).to.be.revertedWith("Ownable: caller is not the owner");
-        });
     });
 
     describe("Weapons", function () {

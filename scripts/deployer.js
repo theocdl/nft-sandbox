@@ -7,18 +7,17 @@ async function main() {
         deployer.address
     );
 
-    // Deploy Character.sol
+    const DAI = await  ethers.getContractFactory("DAI");
+    const dai = await DAI.deploy();
+    console.log("DAI.sol deployed at", dai.address);
+
     const Character = await ethers.getContractFactory("Character");
-    const character = await Character.deploy();
+    const character = await Character.deploy(dai.address,deployer.address );
     console.log("Character.sol deployed at", character.address);
 
     const Weapon = await ethers.getContractFactory("Weapon");
     const weapon = await Weapon.deploy();
     console.log("Weapon.sol deployed at", weapon.address);
-
-    const DAI = await  ethers.getContractFactory("DAI");
-    const dai = await DAI.deploy();
-    console.log("DAI.sol deployed at", dai.address);
 
 
     saveFrontendFilesCharacter(character);

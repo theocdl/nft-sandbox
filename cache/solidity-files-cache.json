@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\application\\Solidity\\nft-sandbox\\contracts\\Character.sol": {
-      "lastModificationDate": 1616956099295,
-      "contentHash": "f5303e07a6c39bc839e08815382786b4",
+      "lastModificationDate": 1617053870526,
+      "contentHash": "db2b69597b83447ddeb2162e0dc3f481",
       "sourceName": "contracts/Character.sol",
       "solcConfig": {
         "version": "0.7.3",

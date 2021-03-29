@@ -1,5 +1,7 @@
 import React from "react";
 import {ethers} from "ethers";
+import {BigNumber} from "@ethersproject/bignumber";
+
 import characterAddress from "../contracts/characterAddress.json";
 import CharacterArtifact from "../contracts/Character.json";
 import weaponAddress from "../contracts/weaponAddress.json";
@@ -10,7 +12,7 @@ import {NoWalletDetected} from "./NoWalletDetected";
 import {ConnectWallet} from "./ConnectWallet";
 import {Loading} from "./Loading";
 
-// const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
+const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
 const HARDHAT_NETWORK_ID = '5';
 // const HARDHAT_NETWORK_ID = '31337';
@@ -29,7 +31,7 @@ export class Dapp extends React.Component {
             transactionError: undefined,
             networkError: undefined,
 
-            mitsurugi: {
+            emperor: {
                 addr: undefined,
                 name: undefined,
                 image: undefined,
@@ -37,7 +39,15 @@ export class Dapp extends React.Component {
                 price: undefined
             },
 
-            siegfried: {
+            pharaoh: {
+                addr: undefined,
+                name: undefined,
+                image: undefined,
+                supply: undefined,
+                price: undefined
+            },
+
+            shogun: {
                 addr: undefined,
                 name: undefined,
                 image: undefined,
@@ -86,6 +96,11 @@ export class Dapp extends React.Component {
                         <h3>
                             DAI faucet
                         </h3>
+                        <p>
+                            If you don't have any Goerli ETH on your wallet, please use <a
+                            href="https://goerli-faucet.slock.it/">this faucet</a>.
+                        </p>
+
                         <div>
                             <p>Click on this button to receive some DAI.</p>
                             <button onClick={() => this._getDAI()} className="btn-sn btn-success mr-md-3">
@@ -93,7 +108,7 @@ export class Dapp extends React.Component {
                             </button>
                         </div>
 
-                        {!this.state.mitsurugi.name && (
+                        {!this.state.emperor.name && (
                             <div className="row">
                                 <div className="col-12">
                                     <p>No NFT found on this wallet.</p>
@@ -101,12 +116,12 @@ export class Dapp extends React.Component {
                             </div>
                         )}
                         <hr/>
-                        {this.state.mitsurugi.name && (
+                        {this.state.emperor.name && (
                             <div className="row">
                                 <div className="col-12">
                                     <p>You own:</p>
                                     <ul>
-                                        <li><b>1</b> Mitsurugi</li>
+                                        <li><b>1</b> Emperor</li>
                                         <li><b>1</b> Soul Edge sword</li>
                                     </ul>
                                 </div>
@@ -120,47 +135,105 @@ export class Dapp extends React.Component {
                         <h3>Create items</h3>
                         <br/>
 
-                        {this.state.mitsurugi.name && (
 
-                            <div className="row">
-
-                                <div className="col-3">
-                                    <img alt="character" src={this.state.mitsurugi.image}
-                                         className="img-thumbnail rounded float-left"></img>
-                                </div>
-                                <div className="col-9">
-                                    <p>Name: <b>{this.state.mitsurugi.name}</b></p>
-                                    <p>Address: <b>{this.state.mitsurugi.address}</b></p>
-                                    <p>Supply: <b>{this.state.mitsurugi.supply}</b></p>
-                                    <p>Price: <b>{this.state.mitsurugi.price}</b></p>
-                                </div>
-                            </div>
-                        )}
-
-                        <br/>
-
-
-                        {this.state.siegfried.name && (
-
-                            <div className="row">
-
-                                <div className="col-3">
-                                    <img alt="character" src={this.state.siegfried.image}
-                                         className="img-thumbnail rounded float-left"></img>
-                                </div>
-                                <div className="col-9">
-                                    <p>Name: <b>{this.state.siegfried.name}</b></p>
-                                    <p>Address: <b>{this.state.siegfried.address}</b></p>
-                                    <p>Supply: <b>{this.state.siegfried.supply}</b></p>
-                                    <p>Price: <b>{this.state.siegfried.price}</b></p>
-                                </div>
-                            </div>
-                        )}
 
                         <hr/>
 
                         <h3>Buy items</h3>
                         <br/>
+
+                        {this.state.emperor.name && (
+
+                            <div className="row">
+
+                                <div className="col-3">
+                                    <img alt="character" src={this.state.emperor.image}
+                                         className="img-thumbnail rounded float-left"></img>
+                                </div>
+                                <div className="col-9">
+                                    <p>Name: <b>{this.state.emperor.name}</b></p>
+                                    <p>Supply: <b>{this.state.emperor.supply}</b></p>
+                                    <p>Price: <b>{this.state.emperor.price}</b></p>
+                                </div>
+                            </div>
+                        )}
+                        <p></p>
+                        <div className="row">
+                            <div className="col-4">
+                            </div>
+                            <div className="col-8">
+
+                                <button onClick={() => this._BuyEmperor()} className="btn-lg btn-success mr-md-3">
+                                    Buy Emperor
+                                </button>
+
+                            </div>
+                        </div>
+                        <br/>
+
+                        <p></p>
+
+
+                        {this.state.pharaoh.name && (
+
+                            <div className="row">
+
+                                <div className="col-3">
+                                    <img alt="character" src={this.state.pharaoh.image}
+                                         className="img-thumbnail rounded float-left"></img>
+                                </div>
+                                <div className="col-9">
+                                    <p>Name: <b>{this.state.pharaoh.name}</b></p>
+                                    <p>Supply: <b>{this.state.pharaoh.supply}</b></p>
+                                    <p>Price: <b>{this.state.pharaoh.price}</b></p>
+                                </div>
+                            </div>
+                        )}
+                        <p></p>
+                        <div className="row">
+                            <div className="col-4">
+                            </div>
+                            <div className="col-8">
+
+                                <button onClick={() => this._BuyPharaoh()} className="btn-lg btn-success mr-md-3">
+                                    Buy Pharaoh
+                                </button>
+
+                            </div>
+                        </div>
+                        <br/>
+
+                        <p></p>
+
+                        {this.state.shogun.name && (
+
+                            <div className="row">
+
+                                <div className="col-3">
+                                    <img alt="character" src={this.state.shogun.image}
+                                         className="img-thumbnail rounded float-left"></img>
+                                </div>
+                                <div className="col-9">
+                                    <p>Name: <b>{this.state.shogun.name}</b></p>
+                                    <p>Supply: <b>{this.state.shogun.supply}</b></p>
+                                    <p>Price: <b>{this.state.shogun.price}</b></p>
+                                </div>
+                            </div>
+                        )}
+                        <p></p>
+                        <div className="row">
+                            <div className="col-4">
+                            </div>
+                            <div className="col-8">
+
+                                <button onClick={() => this._BuyShogun()} className="btn-lg btn-success mr-md-3">
+                                    Buy Shogun
+                                </button>
+
+                            </div>
+                        </div>
+                        <br/>
+
                         <hr/>
 
                         <h3>Earn items</h3>
@@ -259,7 +332,9 @@ export class Dapp extends React.Component {
 
     async _updateState() {
 
-        // poll metadata
+        var supplyEmperor = await this._character.emperorSupply() ;
+        supplyEmperor = supplyEmperor.toString();
+
         var getMetadata = await this._character.uri(1);
 
         var replaced = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000001");
@@ -267,31 +342,198 @@ export class Dapp extends React.Component {
         var metadata = await metadataRaw.json();
 
         this.setState({
-            mitsurugi: {
+            emperor: {
                 image: metadata.image,
                 address: characterAddress.Character,
                 name: metadata.name,
-                supply: 1, // placeholder value
-                price: "0 EUR" // placeholder value
+                supply: supplyEmperor, // placeholder value
+                price: "50 DAI" // placeholder value
             }
         });
+
+        var supplyPharaoh = await this._character.pharaohSupply() ;
+        supplyPharaoh = supplyPharaoh.toString();
 
         var replaced2 = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000002");
         var metadataRaw2 = await fetch(replaced2);
         var metadata2 = await metadataRaw2.json();
 
         this.setState({
-            siegfried: {
-                //image: metadata2.image,
+            pharaoh: {
                 image: metadata2.image,
                 address: characterAddress.Character,
                 name: metadata2.name,
-                supply: 1, // placeholder value
-                price: "0 EUR" // placeholder value
+                supply: supplyPharaoh, // placeholder value
+                price: "50 DAI" // placeholder value
             }
         });
 
+        var supplyShogun = await this._character.shogunSupply() ;
+        supplyShogun = supplyShogun.toString();
+
+        var replaced3 = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000003");
+        var metadataRaw3 = await fetch(replaced3);
+        var metadata3 = await metadataRaw3.json();
+
+        this.setState({
+            shogun: {
+                image: metadata3.image,
+                address: characterAddress.Character,
+                name: metadata3.name,
+                supply: supplyShogun, // placeholder value
+                price: "50 DAI" // placeholder value
+            }
+        });
     }
+
+    async _BuyEmperor() {
+        try {
+
+            this._dismissTransactionError();
+
+            this._character = new ethers.Contract(
+                characterAddress.Character,
+                CharacterArtifact.abi,
+                this._provider.getSigner(0)
+            );
+
+            // Approve
+            this._dai = new ethers.Contract(
+                daiAddress.DAI,
+                DAIArtifact.abi,
+                this._provider.getSigner(0)
+            );
+            const volume = 1;
+            const volume2 = volume *50 * 1000000000000000000;
+            const volumeToString = volume2.toString();
+
+
+            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(volumeToString));
+            await approveMyDAI.wait();
+
+            const buy = await this._character.buyEmperor(volume);
+
+            const receipt = await buy.wait();
+
+            if (receipt.status === 0) {
+                throw new Error("Transaction failed");
+            }
+
+            await this._updateState();
+
+        } catch (error) {
+            if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+                return;
+            }
+            console.error(error);
+            this.setState({transactionError: error});
+
+        } finally {
+
+            this.setState({txBeingSent: undefined});
+
+        }
+    }
+
+    async _BuyPharaoh() {
+        try {
+
+            this._dismissTransactionError();
+
+            this._character = new ethers.Contract(
+                characterAddress.Character,
+                CharacterArtifact.abi,
+                this._provider.getSigner(0)
+            );
+
+            // Approve
+            this._dai = new ethers.Contract(
+                daiAddress.DAI,
+                DAIArtifact.abi,
+                this._provider.getSigner(0)
+            );
+            const volume = 1;
+            const volume2 = volume *50 * 1000000000000000000;
+            const volumeToString = volume2.toString();
+
+
+            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(volumeToString));
+            await approveMyDAI.wait();
+
+            const buy = await this._character.buyPharaoh(volume);
+
+            const receipt = await buy.wait();
+
+            if (receipt.status === 0) {
+                throw new Error("Transaction failed");
+            }
+
+            await this._updateState();
+
+        } catch (error) {
+            if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+                return;
+            }
+            console.error(error);
+            this.setState({transactionError: error});
+
+        } finally {
+
+            this.setState({txBeingSent: undefined});
+
+        }
+    }
+
+
+    async _BuyShogun() {
+        try {
+
+            this._dismissTransactionError();
+
+            this._character = new ethers.Contract(
+                characterAddress.Character,
+                CharacterArtifact.abi,
+                this._provider.getSigner(0)
+            );
+
+            // Approve
+            this._dai = new ethers.Contract(
+                daiAddress.DAI,
+                DAIArtifact.abi,
+                this._provider.getSigner(0)
+            );
+            const volume = 1;
+            const volume2 = volume *50 * 1000000000000000000;
+            const volumeToString = volume2.toString();
+
+
+            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(volumeToString));
+            await approveMyDAI.wait();
+
+            const buy = await this._character.buyShogun(volume);
+
+            const receipt = await buy.wait();
+
+            if (receipt.status === 0) {
+                throw new Error("Transaction failed");
+            }
+
+            await this._updateState();
+
+        } catch (error) {
+            if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+                return;
+            }
+            console.error(error);
+            this.setState({transactionError: error});
+
+        } finally {
+
+            this.setState({txBeingSent: undefined});
+
+        }
+    }
+
 
     async _whitelistWinner() {
 
