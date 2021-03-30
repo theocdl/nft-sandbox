@@ -32,6 +32,7 @@ contract Character is ERC1155, Ownable {
     function buyEmperor(uint256 _amount) external
     {
         uint256 amount = _amount;
+        uint256 price = amount * 1000000000000000000 * 50;
 
         require(
             emperorSupply > 0,
@@ -43,7 +44,7 @@ contract Character is ERC1155, Ownable {
             "You ask to much Emperor !"
         );
 
-        IERC20(dai).transferFrom(msg.sender, beneficiary, amount);
+        IERC20(dai).transferFrom(msg.sender, beneficiary, price);
 
         _mint(msg.sender, EMPEROR, amount, "");
         emperorSupply -= amount;
@@ -53,6 +54,7 @@ contract Character is ERC1155, Ownable {
     function buyPharaoh(uint256 _amount) external
     {
         uint256 amount = _amount;
+        uint256 price = amount * 1000000000000000000 * 50;
 
         require(
             pharaohSupply > 0,
@@ -64,7 +66,7 @@ contract Character is ERC1155, Ownable {
             "You ask to much Pharaoh !"
         );
 
-        IERC20(dai).transferFrom(msg.sender, beneficiary, amount);
+        IERC20(dai).transferFrom(msg.sender, beneficiary, price);
 
         _mint(msg.sender, PHARAOH, amount, "");
         pharaohSupply -= amount;
@@ -74,7 +76,7 @@ contract Character is ERC1155, Ownable {
     function buyShogun(uint256 _amount) external
     {
         uint256 amount = _amount;
-
+        uint256 price = amount * 1000000000000000000 * 50;
         require(
             shogunSupply > 0,
             "There is no more Shogun !"
@@ -85,7 +87,7 @@ contract Character is ERC1155, Ownable {
             "You ask to much Shogun !"
         );
 
-        IERC20(dai).transferFrom(msg.sender, beneficiary, amount);
+        IERC20(dai).transferFrom(msg.sender, beneficiary,price);
 
         _mint(msg.sender, SHOGUN, amount, "");
         shogunSupply -= amount;
