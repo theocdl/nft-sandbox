@@ -175,7 +175,7 @@ export class Dapp extends React.Component {
                                 <div className="col-9">
                                     <p>Name: <b>{this.state.emperor.name}</b></p>
                                     <p>Supply: <b>{this.state.emperor.supply}</b></p>
-                                    <p>Price: <b>{this.state.emperor.price}</b></p>
+                                    <p>Price: <b>{this.state.emperor.price}</b> DAI</p>
                                     <p></p>
                                     <Buy
                                         Buy={(volume) =>
@@ -199,7 +199,7 @@ export class Dapp extends React.Component {
                                 <div className="col-9">
                                     <p>Name: <b>{this.state.pharaoh.name}</b></p>
                                     <p>Supply: <b>{this.state.pharaoh.supply}</b></p>
-                                    <p>Price: <b>{this.state.pharaoh.price}</b></p>
+                                    <p>Price: <b>{this.state.pharaoh.price}</b> DAI</p>
                                     <p></p>
                                     <Buy
                                         Buy={(volume) =>
@@ -223,7 +223,7 @@ export class Dapp extends React.Component {
                                 <div className="col-9">
                                     <p>Name: <b>{this.state.shogun.name}</b></p>
                                     <p>Supply: <b>{this.state.shogun.supply}</b></p>
-                                    <p>Price: <b>{this.state.shogun.price}</b></p>
+                                    <p>Price: <b>{this.state.shogun.price}</b> DAI</p>
                                     <p></p>
                                     <Buy
                                         Buy={(volume) =>
@@ -377,7 +377,7 @@ export class Dapp extends React.Component {
                 address: characterAddress.Character,
                 name: metadata.name,
                 supply: supplyEmperor, // placeholder value
-                price: "50 DAI" // placeholder value
+                price: metadata.price // placeholder value
             }
         });
 
@@ -394,7 +394,7 @@ export class Dapp extends React.Component {
                 address: characterAddress.Character,
                 name: metadata2.name,
                 supply: supplyPharaoh, // placeholder value
-                price: "50 DAI" // placeholder value
+                price: metadata2.price // placeholder value
             }
         });
 
@@ -411,7 +411,7 @@ export class Dapp extends React.Component {
                 address: characterAddress.Character,
                 name: metadata3.name,
                 supply: supplyShogun, // placeholder value
-                price: "50 DAI" // placeholder value
+                price: metadata3.price // placeholder value
             }
         });
     }
@@ -433,15 +433,15 @@ export class Dapp extends React.Component {
                 DAIArtifact.abi,
                 this._provider.getSigner(0)
             );
+            const price = this.state.emperor.price;
+            const price2 = volume * price * 1000000000000000000;
+            const priceToString = price2.toString();
 
-            const volume2 = volume * 50 * 1000000000000000000;
-            const volumeToString = volume2.toString();
 
-
-            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(volumeToString));
+            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(priceToString));
             await approveMyDAI.wait();
 
-            const buy = await this._character.buyEmperor(volume);
+            const buy = await this._character.buyEmperor(volume, priceToString);
 
             const receipt = await buy.wait();
 
@@ -483,14 +483,15 @@ export class Dapp extends React.Component {
                 this._provider.getSigner(0)
             );
 
-            const volume2 = volume * 50 * 1000000000000000000;
-            const volumeToString = volume2.toString();
+            const price = this.state.pharaoh.price;
+            const price2 = volume * price * 1000000000000000000;
+            const priceToString = price2.toString();
 
 
-            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(volumeToString));
+            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(priceToString));
             await approveMyDAI.wait();
 
-            const buy = await this._character.buyPharaoh(volume);
+            const buy = await this._character.buyPharaoh(volume, priceToString);
 
             const receipt = await buy.wait();
 
@@ -533,15 +534,15 @@ export class Dapp extends React.Component {
                 this._provider.getSigner(0)
             );
 
-            volume = volume.toString();
-            const volume2 = volume * 50 * 1000000000000000000;
-            const volumeToString = volume2.toString();
+            const price = this.state.emperor.price;
+            const price2 = volume * price * 1000000000000000000;
+            const priceToString = price2.toString();
 
 
-            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(volumeToString));
+            const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(priceToString));
             await approveMyDAI.wait();
 
-            const buy = await this._character.buyShogun(BigNumber.from(volume));
+            const buy = await this._character.buyShogun(volume, priceToString);
 
             const receipt = await buy.wait();
 

@@ -20,7 +20,7 @@ contract Character is ERC1155, Ownable {
 
     event Minted(uint256 indexed name, uint256 indexed amount);
 
-    constructor(address _dai, address _beneficiary) public ERC1155("https://ipfs.io/ipfs/QmUS2WzBGhX6saW3NhkwBrxKBU5SE8fUHM8o7FfEdkrKbc/{id}.json")
+    constructor(address _dai, address _beneficiary) public ERC1155("https://ipfs.io/ipfs/QmZ2qeob2hm9uKx3fTyAdL87MCi3vod6dd631q6UQxQ89Z/{id}.json")
     {
         dai = _dai;
         beneficiary = _beneficiary;
@@ -29,10 +29,10 @@ contract Character is ERC1155, Ownable {
         shogunSupply = 2000;
     }
 
-    function buyEmperor(uint256 _amount) external
+    function buyEmperor(uint256 _amount, uint256 _price) external
     {
         uint256 amount = _amount;
-        uint256 price = amount * 1000000000000000000 * 50;
+        uint256 price = _price;
 
         require(
             emperorSupply > 0,
@@ -51,10 +51,10 @@ contract Character is ERC1155, Ownable {
         emit Minted(EMPEROR, amount);
     }
 
-    function buyPharaoh(uint256 _amount) external
+    function buyPharaoh(uint256 _amount, uint256 _price) external
     {
         uint256 amount = _amount;
-        uint256 price = amount * 1000000000000000000 * 50;
+        uint256 price = _price;
 
         require(
             pharaohSupply > 0,
@@ -73,10 +73,10 @@ contract Character is ERC1155, Ownable {
         emit Minted(PHARAOH, amount);
     }
 
-    function buyShogun(uint256 _amount) external
+    function buyShogun(uint256 _amount, uint256 _price) external
     {
         uint256 amount = _amount;
-        uint256 price = amount * 1000000000000000000 * 50;
+        uint256 price = _price;
         require(
             shogunSupply > 0,
             "There is no more Shogun !"

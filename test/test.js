@@ -44,7 +44,7 @@ describe("NFT Sandbox", function () {
         it("Player should buy the NFT", async function () {
             const price = ethers.utils.parseEther('50');
             await dai.connect(player).approve(character.address, price);
-            await character.connect(player).buyEmperor(1);
+            await character.connect(player).buyEmperor(1, price);
             let balance = await character.balanceOf(player.address, 0);
             let balanceHex = balance.toString();
             expect(balanceHex).to.equal('1');
