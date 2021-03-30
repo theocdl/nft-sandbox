@@ -11,6 +11,8 @@ import DAIArtifact from "../contracts/DAI.json";
 import {NoWalletDetected} from "./NoWalletDetected";
 import {ConnectWallet} from "./ConnectWallet";
 import {Loading} from "./Loading";
+import {Buy} from "./Buy";
+
 
 const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
@@ -30,6 +32,13 @@ export class Dapp extends React.Component {
             txBeingSent: undefined,
             transactionError: undefined,
             networkError: undefined,
+
+            userBalance: {
+                emperor: '0',
+                pharaoh: '0',
+                shogun: '0',
+                soulEdge: '0'
+            },
 
             emperor: {
                 addr: undefined,
@@ -120,21 +129,34 @@ export class Dapp extends React.Component {
                             <div className="row">
                                 <div className="col-12">
                                     <p>You own:</p>
-                                    <ul>
-                                        <li><b>1</b> Emperor</li>
-                                        <li><b>1</b> Soul Edge sword</li>
-                                    </ul>
+
+
+                                        {this.state.userBalance.emperor !== '0'
+                                            ? <ul><li><b>{this.state.userBalance.emperor}</b> {this.state.emperor.name}</li></ul>
+                                            : <p></p>
+                                        }
+                                        {this.state.userBalance.pharaoh !== '0'
+                                            ? <ul><li><b>{this.state.userBalance.pharaoh}</b> {this.state.pharaoh.name}</li></ul>
+                                            : <p></p>
+                                        }
+                                        {this.state.userBalance.shogun !== '0'
+                                            ? <ul><li><b>{this.state.userBalance.shogun}</b> {this.state.shogun.name}</li></ul>
+                                            : <p></p>
+                                        }
+                                        {this.state.userBalance.soulEdge !== '0'
+                                            ? <ul><li><b>{this.state.userBalance.soulEdge}</b> Soul Edge sword</li></ul>
+                                            : <p></p>
+                                        }
+                                        {this.state.userBalance.soulEdge === '0' && this.state.userBalance.shogun === '0' &&
+                                         this.state.userBalance.pharaoh === '0' && this.state.userBalance.emperor === '0'
+                                            ? <p>Your wallet is empty !</p>
+                                            : <p></p>
+                                        }
+
+
                                 </div>
                             </div>
                         )}
-
-
-                        <hr/>
-
-                        {/*  */}
-                        <h3>Create items</h3>
-                        <br/>
-
 
 
                         <hr/>
@@ -154,25 +176,17 @@ export class Dapp extends React.Component {
                                     <p>Name: <b>{this.state.emperor.name}</b></p>
                                     <p>Supply: <b>{this.state.emperor.supply}</b></p>
                                     <p>Price: <b>{this.state.emperor.price}</b></p>
+                                    <p></p>
+                                    <Buy
+                                        Buy={(volume) =>
+                                            this._BuyEmperor(volume)
+                                        }
+                                    />
                                 </div>
                             </div>
                         )}
-                        <p></p>
-                        <div className="row">
-                            <div className="col-4">
-                            </div>
-                            <div className="col-8">
-
-                                <button onClick={() => this._BuyEmperor()} className="btn-lg btn-success mr-md-3">
-                                    Buy Emperor
-                                </button>
-
-                            </div>
-                        </div>
-                        <br/>
 
                         <p></p>
-
 
                         {this.state.pharaoh.name && (
 
@@ -186,22 +200,15 @@ export class Dapp extends React.Component {
                                     <p>Name: <b>{this.state.pharaoh.name}</b></p>
                                     <p>Supply: <b>{this.state.pharaoh.supply}</b></p>
                                     <p>Price: <b>{this.state.pharaoh.price}</b></p>
+                                    <p></p>
+                                    <Buy
+                                        Buy={(volume) =>
+                                            this._BuyPharaoh(volume)
+                                        }
+                                    />
                                 </div>
                             </div>
                         )}
-                        <p></p>
-                        <div className="row">
-                            <div className="col-4">
-                            </div>
-                            <div className="col-8">
-
-                                <button onClick={() => this._BuyPharaoh()} className="btn-lg btn-success mr-md-3">
-                                    Buy Pharaoh
-                                </button>
-
-                            </div>
-                        </div>
-                        <br/>
 
                         <p></p>
 
@@ -217,29 +224,24 @@ export class Dapp extends React.Component {
                                     <p>Name: <b>{this.state.shogun.name}</b></p>
                                     <p>Supply: <b>{this.state.shogun.supply}</b></p>
                                     <p>Price: <b>{this.state.shogun.price}</b></p>
+                                    <p></p>
+                                    <Buy
+                                        Buy={(volume) =>
+                                            this._BuyShogun(volume)
+                                        }
+                                    />
                                 </div>
                             </div>
                         )}
                         <p></p>
-                        <div className="row">
-                            <div className="col-4">
-                            </div>
-                            <div className="col-8">
-
-                                <button onClick={() => this._BuyShogun()} className="btn-lg btn-success mr-md-3">
-                                    Buy Shogun
-                                </button>
-
-                            </div>
-                        </div>
-                        <br/>
 
                         <hr/>
 
                         <h3>Earn items</h3>
                         <br/>
-                        <button onClick={() => this._whitelistWinner()} className="btn-lg btn-primary">
-                            PLAY
+                        <p>Achievement #1</p>
+                        <button onClick={() => this._whitelistWinner()} className="btn-sm btn-primary">
+                            Play
                         </button>
                         <br/>
                         <br/>
@@ -247,7 +249,7 @@ export class Dapp extends React.Component {
                         <div>
                             {a === 2
                                 ? <button onClick={() => this._claimReward()} className="btn-sn btn-success mr-md-3">
-                                    CLAIM
+                                    Claim
                                 </button>
 
                                 : <p></p>
@@ -332,10 +334,38 @@ export class Dapp extends React.Component {
 
     async _updateState() {
 
-        var supplyEmperor = await this._character.emperorSupply() ;
-        supplyEmperor = supplyEmperor.toString();
+        this._weapon = new ethers.Contract(
+            weaponAddress.Weapon,
+            WeaponArtifact.abi,
+            this._provider.getSigner(0)
+        );
+
+        var balanceOfEmperorRaw = await this._character.balanceOf(this.state.selectedAddress, 0);
+        var balanceOfEmperor = balanceOfEmperorRaw.toString();
+
+        var balanceOfPharaohRaw = await this._character.balanceOf(this.state.selectedAddress, 1);
+        var balanceOfPharaoh = balanceOfPharaohRaw.toString();
+
+        var balanceOfShogunRaw = await this._character.balanceOf(this.state.selectedAddress, 2);
+        var balanceOfShogun = balanceOfShogunRaw.toString();
+
+        var balanceOfSoulEdgeRaw = await this._weapon.balanceOf(this.state.selectedAddress, 0);
+        var balanceOfSoulEdge = balanceOfSoulEdgeRaw.toString();
+
+        this.setState({
+            userBalance: {
+                emperor: balanceOfEmperor,
+                pharaoh: balanceOfPharaoh,
+                shogun: balanceOfShogun,
+                soulEdge: balanceOfSoulEdge
+            }
+        });
+
 
         var getMetadata = await this._character.uri(1);
+
+        var supplyEmperor = await this._character.emperorSupply();
+        supplyEmperor = supplyEmperor.toString();
 
         var replaced = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000001");
         var metadataRaw = await fetch(replaced);
@@ -351,7 +381,7 @@ export class Dapp extends React.Component {
             }
         });
 
-        var supplyPharaoh = await this._character.pharaohSupply() ;
+        var supplyPharaoh = await this._character.pharaohSupply();
         supplyPharaoh = supplyPharaoh.toString();
 
         var replaced2 = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000002");
@@ -368,7 +398,7 @@ export class Dapp extends React.Component {
             }
         });
 
-        var supplyShogun = await this._character.shogunSupply() ;
+        var supplyShogun = await this._character.shogunSupply();
         supplyShogun = supplyShogun.toString();
 
         var replaced3 = getMetadata.replace("{id}", "0000000000000000000000000000000000000000000000000000000000000003");
@@ -386,7 +416,7 @@ export class Dapp extends React.Component {
         });
     }
 
-    async _BuyEmperor() {
+    async _BuyEmperor(volume) {
         try {
 
             this._dismissTransactionError();
@@ -403,8 +433,8 @@ export class Dapp extends React.Component {
                 DAIArtifact.abi,
                 this._provider.getSigner(0)
             );
-            const volume = 1;
-            const volume2 = volume *50 * 1000000000000000000;
+
+            const volume2 = volume * 50 * 1000000000000000000;
             const volumeToString = volume2.toString();
 
 
@@ -435,7 +465,7 @@ export class Dapp extends React.Component {
         }
     }
 
-    async _BuyPharaoh() {
+    async _BuyPharaoh(volume) {
         try {
 
             this._dismissTransactionError();
@@ -452,8 +482,8 @@ export class Dapp extends React.Component {
                 DAIArtifact.abi,
                 this._provider.getSigner(0)
             );
-            const volume = 1;
-            const volume2 = volume *50 * 1000000000000000000;
+
+            const volume2 = volume * 50 * 1000000000000000000;
             const volumeToString = volume2.toString();
 
 
@@ -485,7 +515,7 @@ export class Dapp extends React.Component {
     }
 
 
-    async _BuyShogun() {
+    async _BuyShogun(volume) {
         try {
 
             this._dismissTransactionError();
@@ -502,15 +532,16 @@ export class Dapp extends React.Component {
                 DAIArtifact.abi,
                 this._provider.getSigner(0)
             );
-            const volume = 1;
-            const volume2 = volume *50 * 1000000000000000000;
+
+            volume = volume.toString();
+            const volume2 = volume * 50 * 1000000000000000000;
             const volumeToString = volume2.toString();
 
 
             const approveMyDAI = await this._dai.approve(characterAddress.Character, BigNumber.from(volumeToString));
             await approveMyDAI.wait();
 
-            const buy = await this._character.buyShogun(volume);
+            const buy = await this._character.buyShogun(BigNumber.from(volume));
 
             const receipt = await buy.wait();
 
@@ -545,7 +576,7 @@ export class Dapp extends React.Component {
 
         a = 1 + Math.floor(Math.random() * 2);
         if (a === 2) {
-            await this._weapon.whitelistWinner("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
+            await this._weapon.whitelistWinner(this.state.selectedAddress);
         }
     }
 

@@ -433,8 +433,8 @@
       ]
     },
     "D:\\application\\Solidity\\nft-sandbox\\contracts\\Weapon.sol": {
-      "lastModificationDate": 1616931776664,
-      "contentHash": "b964cb39105873817dd73c40bafeeec5",
+      "lastModificationDate": 1617126616846,
+      "contentHash": "22b3be4a84f5b491dab0b89bf8fc4510",
       "sourceName": "contracts/Weapon.sol",
       "solcConfig": {
         "version": "0.7.3",

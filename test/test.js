@@ -42,7 +42,8 @@ describe("NFT Sandbox", function () {
     describe("Characters", function () {
 
         it("Player should buy the NFT", async function () {
-            await dai.connect(player).approve(character.address, 1);
+            const price = ethers.utils.parseEther('50');
+            await dai.connect(player).approve(character.address, price);
             await character.connect(player).buyEmperor(1);
             let balance = await character.balanceOf(player.address, 0);
             let balanceHex = balance.toString();
@@ -52,10 +53,6 @@ describe("NFT Sandbox", function () {
     });
 
     describe("Weapons", function () {
-
-        it("Attacker can't call the function 'whitelistWinner'", async function () {
-            await expect(weapon.connect(attacker).whitelistWinner(player.address)).to.be.revertedWith("Ownable: caller is not the owner");
-        });
 
         it("Player can't claim his reward if he doesn't win the game", async function () {
             await expect(weapon.connect(player).claimReward()).to.be.revertedWith("You didn't win the game");

@@ -33,9 +33,9 @@ contract Weapon is ERC1155, Ownable {
 
     mapping(uint => winner) public winners;
 
-
-    function whitelistWinner(address _winner) external onlyOwner {
-
+    //Uncomment onlyOwner() for mainnet deployement
+    function whitelistWinner(address _winner) external /* onlyOwner () */
+    {
         //if the person wins the game, he can access this function which allows to claim the reward.
 
         id += 1;
